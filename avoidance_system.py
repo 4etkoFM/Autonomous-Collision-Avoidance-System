@@ -4,7 +4,7 @@ from ultralytics import YOLO
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-model = YOLO('runs/detect/train2/weights/best.pt')
+model = YOLO('best.pt')
 CLASS_NAMES = model.names
 DANGER_CLASSES = [
     'large_debris',
@@ -85,4 +85,5 @@ def run_avoidance_system(video_source=0):
     print("Работа завершена")
 
 if __name__ == "__main__":
+
     run_avoidance_system(video_source=0)
