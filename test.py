@@ -3,7 +3,7 @@ import os
 from ultralytics import YOLO
 
 IMAGES_DIR = 'train/images'
-MODEL_PATH = 'runs/detect/train2/weights/best.pt'
+MODEL_PATH = 'best.pt'
 CONF_THRES = 0.25
 
 model = YOLO(MODEL_PATH)
@@ -56,5 +56,6 @@ for img_name in image_files:
 
     if key == 27:
         break
+
 
 cv2.destroyAllWindows()
