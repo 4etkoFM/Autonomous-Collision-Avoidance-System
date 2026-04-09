@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceVision AI — Pricing</title>
+    <link rel="stylesheet" href="e.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="star-canvas"></canvas>
+ 
+<div class="header">
+    <div class="logo">👁 SpaceVision AI</div>
+    <div class="nav">
+        <div class="nav-item"><a href="ai.html">Home</a></div>
+        <div class="nav-item"><a href="work.html">How It Works</a></div>
+        <div class="nav-item"><a href="price.html">Pricing</a></div>
+        <div class="nav-item"><a href="2pag.html">Functions</a></div>
+    </div>
+    <div class="header-btn">Demo</div>
+</div>
+ 
+<div class="pricing-section">
+ 
+    <!-- LEFT BLOCK -->
+    <div class="pricing-text reveal">
+        <div class="section-label" style="margin-bottom:16px;">Access Plan</div>
+        <h1>Premium Access<br>to SpaceVision AI</h1>
+ 
+        <p class="desc">
+            SpaceVision AI is an advanced artificial intelligence system
+            designed to support safe spacecraft navigation in space.
+            The system uses onboard cameras to detect surrounding objects
+            and debris in real time with unmatched precision.
+        </p>
+        <p class="desc">
+            By analyzing camera imagery, the AI determines the distance
+            and relative position of objects and evaluates possible risks
+            along the flight path.
+        </p>
+        <p class="desc">
+            Based on this analysis, SpaceVision AI recommends the safest
+            direction — left, right, or straight ahead — helping avoid collisions
+            at every stage of the mission.
+        </p>
+ 
+        <h3>How to get access</h3>
+        <ul>
+            <li>Choose the Premium subscription plan</li>
+            <li>Send us your request with a short message</li>
+            <li>Price negotiated individually per mission scope</li>
+        </ul>
+    </div>
+ 
+    <!-- RIGHT CARD -->
+    <div class="pricing-card reveal">
+        <div class="corner-tl"></div><div class="corner-tr"></div>
+        <div class="corner-bl"></div><div class="corner-br"></div>
+ 
+        <div class="card-top">
+            <div style="font-size:10px; letter-spacing:.3em; color:rgba(0,242,254,.6); font-family:'Orbitron',sans-serif; margin-bottom:8px; text-transform:uppercase;">Premium Tier</div>
+            <h2>FULL ACCESS</h2>
+            <div style="margin-top:12px; font-size:13px; color:rgba(200,230,255,.6); font-family:'Exo 2',sans-serif;">Custom Pricing · Per Agreement</div>
+        </div>
+ 
+        <div class="card-content">
+            <ul class="features">
+                <li>Real-time camera object detection</li>
+                <li>Distance &amp; position calculation</li>
+                <li>AI-based navigation decisions</li>
+                <li>Left / Right / Straight guidance</li>
+                <li>Advanced collision risk analysis</li>
+                <li>24/7 system monitoring &amp; alerts</li>
+            </ul>
+ 
+            <input type="text" placeholder="Your message">
+            <input type="email" placeholder="Email address">
+            <button class="full btn primary">Send Request</button>
+        </div>
+    </div>
+ 
+</div>
+ 
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+const canvas=document.getElementById('star-canvas'),ctx=canvas.getContext('2d');
+let W,H,stars=[];
+function init(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight*2;stars=Array.from({length:200},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,o:Math.random()*.6+.2,s:Math.random()*.3+.05,t:Math.random()*Math.PI*2}));}
+function draw(){ctx.clearRect(0,0,W,H);stars.forEach(s=>{s.t+=s.s*.02;const o=s.o+Math.sin(s.t)*.3;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(200,230,255,${Math.max(.05,o)})`;ctx.fill();});requestAnimationFrame(draw);}
+window.addEventListener('resize',init);init();draw();
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

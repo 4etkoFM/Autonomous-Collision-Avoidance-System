@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form - SpaceVision AI</title>
+    <link rel="stylesheet" href="e.css">
+    <style>
+     
+      
+
+        .contact-container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            background: linear-gradient(145deg, #0a0a0a, #11162a);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00ffff, #6bf0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .contact-container p {
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .contact-container input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            border: 1px solid #00ffff;
+            background-color: #11162a;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .contact-container input::placeholder {
+            color: #aaa;
+        }
+
+        .contact-container button {
+            width: 100%;
+            padding: 14px 0;
+            margin-top: 20px;
+            border-radius: 20px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(90deg, #00ffff, #4facfe);
+            color: #111;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .contact-container button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Fill out the form below and we’ll get back to you!</p>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <input type="email" placeholder="Email" required>
+            <button type="submit">Enter</button>
+        </form>
+    </div>
+
+</body>
+</html>

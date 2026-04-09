@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceVision AI — Collision Avoidance System</title>
+    <link rel="stylesheet" href="e.css">
+</head>
+<body>
+ 
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+ 
+<!-- Animated star field -->
+<canvas id="star-canvas"></canvas>
+ 
+<!-- ── HEADER ── -->
+<div class="header">
+    <div class="logo">👁 SpaceVision AI</div>
+    <div class="nav">
+        <div class="nav-item">Home</div>
+        <div class="nav-item"><a href="work.html">How It Works</a></div>
+        <div class="nav-item"><a href="price.html">Pricing</a></div>
+        <div class="nav-item"><a href="2pag.html">Functions</a></div>
+    </div>
+    <div class="header-btn">Demo</div>
+</div>
+ 
+<!-- ── HERO ── -->
+<div class="hero">
+    <img src="cosss.png" class="hero-astronaut" alt="">
+    <img src="lvit.png" class="hero-satellite" alt="">
+ 
+    <div class="hero-content">
+        <div class="hero-eyebrow">Next-Generation Space Navigation</div>
+        <h1>Autonomous Collision<br>Avoidance System</h1>
+        <p>SpaceVision AI uses onboard cameras and deep learning to detect
+           space objects and debris in real time, calculate distances, and
+           recommend precise safe maneuvers — left, right, or straight.</p>
+        <div class="hero-buttons">
+            <div class="btn primary">Start System</div>
+            <div class="btn secondary">Watch Demo</div>
+        </div>
+    </div>
+ 
+    <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+    </div>
+</div>
+ 
+<!-- ── STATS ── -->
+<div class="stats-strip reveal">
+    <div class="stat-item">
+        <span class="stat-number" data-target="99.7">0</span>
+        <span class="stat-label">Detection Accuracy %</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number" data-target="12">0</span>
+        <span class="stat-label">ms Response Time</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number" data-target="360">0</span>
+        <span class="stat-label">° Field of View</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number" data-target="24">0</span>
+        <span class="stat-label">/ 7 Monitoring</span>
+    </div>
+</div>
+ 
+<!-- ── REAL-TIME SECTION ── -->
+<div class="section reveal">
+    <div class="section-label">Core Technology</div>
+    <h2>Real-Time Object Detection &amp; Safe Route Decision</h2>
+    <p style="color:var(--muted); max-width:600px; margin:16px auto 0; line-height:1.8; font-size:1rem;">
+        Combining computer vision with predictive AI models to keep your spacecraft
+        on the safest possible trajectory at all times.
+    </p>
+</div>
+ 
+<!-- ── CONTACT ── -->
+<div class="contact-section reveal">
+    <div class="corner-tl"></div>
+    <div class="corner-tr"></div>
+    <div class="corner-bl"></div>
+    <div class="corner-br"></div>
+    <div class="section-label">Get In Touch</div>
+    <h2>Contact Us</h2>
+    <p>Questions or need a demo? We would love to hear from you.</p>
+    <p><a href="cont.html" class="rrrr">Reach Out</a></p>
+</div>
+ 
+<script>
+// ── CURSOR
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    ring.style.left   = rx + 'px'; ring.style.top  = ry + 'px';
+    requestAnimationFrame(animCursor);
+})();
+ 
+// ── STARS
+const canvas = document.getElementById('star-canvas');
+const ctx    = canvas.getContext('2d');
+let W, H, stars = [];
+function initStars() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight * 2;
+    stars = Array.from({length: 220}, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.2,
+        o: Math.random() * 0.7 + 0.2,
+        s: Math.random() * 0.3 + 0.05,
+        t: Math.random() * Math.PI * 2
+    }));
+}
+function drawStars() {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+        s.t += s.s * 0.02;
+        const o = s.o + Math.sin(s.t) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,230,255,${Math.max(0.05,o)})`;
+        ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+}
+window.addEventListener('resize', initStars);
+initStars(); drawStars();
+ 
+// ── REVEAL ON SCROLL
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+reveals.forEach(r => obs.observe(r));
+ 
+// ── COUNTER ANIMATION
+function animateCounter(el, target) {
+    const isDecimal = target % 1 !== 0;
+    let start = 0, dur = 1800, startTime = null;
+    function step(ts) {
+        if(!startTime) startTime = ts;
+        const p = Math.min((ts - startTime) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        const val  = start + (target - start) * ease;
+        el.textContent = isDecimal ? val.toFixed(1) : Math.round(val);
+        if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if(e.isIntersecting) {
+            document.querySelectorAll('.stat-number').forEach(el => {
+                animateCounter(el, parseFloat(el.dataset.target));
+            });
+            statObs.disconnect();
+        }
+    });
+}, {threshold: 0.5});
+const strip = document.querySelector('.stats-strip');
+if(strip) statObs.observe(strip);
+</script>
+</body>
+</html>
